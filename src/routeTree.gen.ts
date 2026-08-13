@@ -29,6 +29,7 @@ import { Route as ProductsIndexRouteImport } from './routes/products.index'
 import { Route as ProductsIdRouteImport } from './routes/products.$id'
 import { Route as ReceiptGroupRouteImport } from './routes/receipt.$group'
 import { Route as ShopsIndexRouteImport } from './routes/shops.index'
+import { Route as ShopsIdRouteImport } from './routes/shops.$id'
 import { Route as VerifyCodeRouteImport } from './routes/verify.$code'
 import { Route as DotlovableOauthConsentRouteImport } from './routes/[.]lovable.oauth.consent'
 import { Route as Char91DotmcpChar93InvokeToolToolRouteImport } from './routes/[.mcp]/invoke-tool/$tool'
@@ -135,6 +136,11 @@ const ShopsIndexRoute = ShopsIndexRouteImport.update({
   path: '/shops/',
   getParentRoute: () => rootRouteImport,
 } as any)
+const ShopsIdRoute = ShopsIdRouteImport.update({
+  id: '/shops/$id',
+  path: '/shops/$id',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const VerifyCodeRoute = VerifyCodeRouteImport.update({
   id: '/verify/$code',
   path: '/verify/$code',
@@ -168,6 +174,7 @@ export interface FileRoutesByFullPath {
   '/manage/new': typeof ManageNewRoute
   '/products/$id': typeof ProductsIdRoute
   '/receipt/$group': typeof ReceiptGroupRoute
+  '/shops/$id': typeof ShopsIdRoute
   '/verify/$code': typeof VerifyCodeRoute
   '/categories/': typeof CategoriesIndexRoute
   '/installments/': typeof InstallmentsIndexRoute
@@ -193,6 +200,7 @@ export interface FileRoutesByTo {
   '/manage/new': typeof ManageNewRoute
   '/products/$id': typeof ProductsIdRoute
   '/receipt/$group': typeof ReceiptGroupRoute
+  '/shops/$id': typeof ShopsIdRoute
   '/verify/$code': typeof VerifyCodeRoute
   '/categories': typeof CategoriesIndexRoute
   '/installments': typeof InstallmentsIndexRoute
@@ -219,6 +227,7 @@ export interface FileRoutesById {
   '/manage/new': typeof ManageNewRoute
   '/products/$id': typeof ProductsIdRoute
   '/receipt/$group': typeof ReceiptGroupRoute
+  '/shops/$id': typeof ShopsIdRoute
   '/verify/$code': typeof VerifyCodeRoute
   '/categories/': typeof CategoriesIndexRoute
   '/installments/': typeof InstallmentsIndexRoute
@@ -246,6 +255,7 @@ export interface FileRouteTypes {
     | '/manage/new'
     | '/products/$id'
     | '/receipt/$group'
+    | '/shops/$id'
     | '/verify/$code'
     | '/categories/'
     | '/installments/'
@@ -271,6 +281,7 @@ export interface FileRouteTypes {
     | '/manage/new'
     | '/products/$id'
     | '/receipt/$group'
+    | '/shops/$id'
     | '/verify/$code'
     | '/categories'
     | '/installments'
@@ -296,6 +307,7 @@ export interface FileRouteTypes {
     | '/manage/new'
     | '/products/$id'
     | '/receipt/$group'
+    | '/shops/$id'
     | '/verify/$code'
     | '/categories/'
     | '/installments/'
@@ -322,6 +334,7 @@ export interface RootRouteChildren {
   ManageNewRoute: typeof ManageNewRoute
   ProductsIdRoute: typeof ProductsIdRoute
   ReceiptGroupRoute: typeof ReceiptGroupRoute
+  ShopsIdRoute: typeof ShopsIdRoute
   VerifyCodeRoute: typeof VerifyCodeRoute
   CategoriesIndexRoute: typeof CategoriesIndexRoute
   InstallmentsIndexRoute: typeof InstallmentsIndexRoute
@@ -474,6 +487,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof ShopsIndexRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/shops/$id': {
+      id: '/shops/$id'
+      path: '/shops/$id'
+      fullPath: '/shops/$id'
+      preLoaderRoute: typeof ShopsIdRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/verify/$code': {
       id: '/verify/$code'
       path: '/verify/$code'
@@ -515,6 +535,7 @@ const rootRouteChildren: RootRouteChildren = {
   ManageNewRoute: ManageNewRoute,
   ProductsIdRoute: ProductsIdRoute,
   ReceiptGroupRoute: ReceiptGroupRoute,
+  ShopsIdRoute: ShopsIdRoute,
   VerifyCodeRoute: VerifyCodeRoute,
   CategoriesIndexRoute: CategoriesIndexRoute,
   InstallmentsIndexRoute: InstallmentsIndexRoute,
