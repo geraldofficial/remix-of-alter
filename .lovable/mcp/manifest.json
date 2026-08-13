@@ -1,0 +1,162 @@
+{
+  "version": 1,
+  "sdk_version": "0.26.1",
+  "path": "/mcp",
+  "auth": {
+    "type": "oauth",
+    "issuer": "https://ctfmnxahnkqmnzgvuxum.supabase.co/auth/v1",
+    "accepted_audiences": [
+      "authenticated"
+    ]
+  },
+  "mcp": {
+    "server": {
+      "name": "remix-of-remix-of-remix-of-remix-of-swift-stock",
+      "version": "0.1.0",
+      "title": "Remix of Remix of Remix of Remix of Swift Stock"
+    },
+    "tools": [
+      {
+        "name": "list_shops",
+        "title": "List shops",
+        "description": "List the shops set up in this account, with the name, phone number and receipt footer printed on their receipts.",
+        "annotations": {
+          "readOnlyHint": true,
+          "idempotentHint": true,
+          "openWorldHint": false
+        },
+        "inputSchema": {
+          "$schema": "http://json-schema.org/draft-07/schema#",
+          "type": "object",
+          "properties": {}
+        },
+        "outputSchema": null
+      },
+      {
+        "name": "list_categories",
+        "title": "List categories",
+        "description": "List the product categories in the account, with the shop each one belongs to.",
+        "annotations": {
+          "readOnlyHint": true,
+          "idempotentHint": true,
+          "openWorldHint": false
+        },
+        "inputSchema": {
+          "type": "object",
+          "properties": {
+            "shop_id": {
+              "type": "string",
+              "description": "Limit results to one shop id."
+            }
+          },
+          "additionalProperties": false,
+          "$schema": "http://json-schema.org/draft-07/schema#"
+        },
+        "outputSchema": null
+      },
+      {
+        "name": "list_products",
+        "title": "List products",
+        "description": "List the shop's products with stock levels, base price, variants and category. Optionally filter by name and show only items that are out of stock.",
+        "annotations": {
+          "readOnlyHint": true,
+          "idempotentHint": true,
+          "openWorldHint": false
+        },
+        "inputSchema": {
+          "type": "object",
+          "properties": {
+            "search": {
+              "type": "string",
+              "description": "Filter products whose name contains this text."
+            },
+            "only_out_of_stock": {
+              "type": "boolean",
+              "description": "When true, return only products with no stock left."
+            },
+            "limit": {
+              "type": "integer",
+              "description": "Maximum number of products to return (max 100)."
+            }
+          },
+          "additionalProperties": false,
+          "$schema": "http://json-schema.org/draft-07/schema#"
+        },
+        "outputSchema": null
+      },
+      {
+        "name": "sales_summary",
+        "title": "Sales summary",
+        "description": "Summarise sales for a single day: how many sales, the money taken, and each receipt line. Defaults to today.",
+        "annotations": {
+          "readOnlyHint": true,
+          "idempotentHint": true,
+          "openWorldHint": false
+        },
+        "inputSchema": {
+          "type": "object",
+          "properties": {
+            "day": {
+              "type": "string",
+              "description": "Day to summarise as YYYY-MM-DD. Defaults to today."
+            },
+            "shop_id": {
+              "type": "string",
+              "description": "Limit the summary to one shop id."
+            }
+          },
+          "additionalProperties": false,
+          "$schema": "http://json-schema.org/draft-07/schema#"
+        },
+        "outputSchema": null
+      },
+      {
+        "name": "list_open_installments",
+        "title": "List open installments",
+        "description": "List customers still paying in installments, with what they owe, so you can follow them up.",
+        "annotations": {
+          "readOnlyHint": true,
+          "idempotentHint": true,
+          "openWorldHint": false
+        },
+        "inputSchema": {
+          "type": "object",
+          "properties": {
+            "shop_id": {
+              "type": "string",
+              "description": "Limit results to one shop id."
+            }
+          },
+          "additionalProperties": false,
+          "$schema": "http://json-schema.org/draft-07/schema#"
+        },
+        "outputSchema": null
+      },
+      {
+        "name": "check_receipt",
+        "title": "Check a receipt",
+        "description": "Check whether a receipt is genuine using the verification code printed on it, and show the items and total recorded for that sale.",
+        "annotations": {
+          "readOnlyHint": true,
+          "idempotentHint": true,
+          "openWorldHint": false
+        },
+        "inputSchema": {
+          "type": "object",
+          "properties": {
+            "code": {
+              "type": "string",
+              "description": "The verification code printed on the receipt."
+            }
+          },
+          "required": [
+            "code"
+          ],
+          "additionalProperties": false,
+          "$schema": "http://json-schema.org/draft-07/schema#"
+        },
+        "outputSchema": null
+      }
+    ]
+  }
+}

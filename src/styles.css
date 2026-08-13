@@ -1,0 +1,144 @@
+@import "tailwindcss" source(none);
+@source "../src";
+@import "tw-animate-css";
+
+/*
+ * Dark-only design system for the shop app.
+ * Rules baked in here:
+ *  - pure dark surfaces, no gradients, no glows
+ *  - max radius 8px (--radius) or fully round (--radius-full)
+ *  - dividers instead of card borders
+ *  - never uppercase: text-transform is neutralised globally
+ */
+
+@theme inline {
+  --font-sans: "Manrope", ui-sans-serif, system-ui, sans-serif;
+  --radius-sm: 4px;
+  --radius-md: 6px;
+  --radius-lg: 8px;
+  --radius-xl: 8px;
+  --radius-2xl: 8px;
+  --radius-3xl: 8px;
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --color-card: var(--card);
+  --color-card-foreground: var(--foreground);
+  --color-popover: var(--popover);
+  --color-popover-foreground: var(--foreground);
+  --color-primary: var(--primary);
+  --color-primary-foreground: var(--primary-foreground);
+  --color-secondary: var(--secondary);
+  --color-secondary-foreground: var(--foreground);
+  --color-muted: var(--muted);
+  --color-muted-foreground: var(--muted-foreground);
+  --color-accent: var(--accent);
+  --color-accent-foreground: var(--accent-foreground);
+  --color-destructive: var(--destructive);
+  --color-destructive-foreground: var(--foreground);
+  --color-border: var(--border);
+  --color-input: var(--input);
+  --color-ring: var(--ring);
+  --color-money: var(--money);
+  --color-surface: var(--surface);
+  --color-info: var(--info);
+}
+
+
+:root,
+.dark {
+  color-scheme: dark;
+  --radius: 8px;
+  --background: oklch(0.155 0 0);
+  --surface: oklch(0.195 0 0);
+  --foreground: oklch(0.955 0 0);
+  --card: oklch(0.195 0 0);
+  --popover: oklch(0.195 0 0);
+  --primary: oklch(0.955 0 0);
+  --primary-foreground: oklch(0.16 0 0);
+  --secondary: oklch(0.24 0 0);
+  --muted: oklch(0.24 0 0);
+  --muted-foreground: oklch(0.66 0 0);
+  --accent: oklch(0.26 0 0);
+  --accent-foreground: oklch(0.955 0 0);
+  --destructive: oklch(0.61 0.19 25);
+  --info: oklch(0.62 0.18 254);
+  --money: oklch(0.8 0.15 150);
+
+  --border: oklch(0.29 0 0);
+  --input: oklch(0.29 0 0);
+  --ring: oklch(0.5 0 0);
+}
+
+@layer base {
+  * {
+    border-color: var(--color-border);
+    text-transform: none !important;
+    font-variant-caps: normal;
+  }
+
+  html,
+  body {
+    background-color: var(--color-background);
+    color: var(--color-foreground);
+    -webkit-tap-highlight-color: transparent;
+    overscroll-behavior-y: none;
+  }
+
+  body {
+    font-family: var(--font-sans);
+    font-feature-settings: "ss01";
+  }
+
+  input,
+  textarea,
+  button,
+  select {
+    font-family: inherit;
+  }
+
+  input[type="number"]::-webkit-outer-spin-button,
+  input[type="number"]::-webkit-inner-spin-button {
+    appearance: none;
+    margin: 0;
+  }
+}
+
+@utility divide-row {
+  border-bottom: 1px solid var(--color-border);
+}
+
+@utility no-scrollbar {
+  scrollbar-width: none;
+  &::-webkit-scrollbar {
+    display: none;
+  }
+}
+
+@utility press {
+  transition:
+    opacity 120ms ease,
+    background-color 120ms ease;
+  &:active {
+    opacity: 0.55;
+  }
+}
+
+/* only the receipt itself goes on paper */
+@media print {
+  body {
+    background: #fff;
+    color: #000;
+  }
+  .receipt {
+    max-width: none;
+    padding: 0;
+  }
+  .receipt * {
+    color: #000 !important;
+  }
+}
+
+@keyframes dot {
+  0%, 60%, 100% { opacity: 0.25; transform: translateY(0); }
+  30% { opacity: 1; transform: translateY(-3px); }
+}
