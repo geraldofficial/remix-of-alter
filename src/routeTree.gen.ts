@@ -28,6 +28,7 @@ import { Route as ManageNewRouteImport } from './routes/manage.new'
 import { Route as ProductsIndexRouteImport } from './routes/products.index'
 import { Route as ProductsIdRouteImport } from './routes/products.$id'
 import { Route as ReceiptGroupRouteImport } from './routes/receipt.$group'
+import { Route as ShopsIndexRouteImport } from './routes/shops.index'
 import { Route as VerifyCodeRouteImport } from './routes/verify.$code'
 import { Route as DotlovableOauthConsentRouteImport } from './routes/[.]lovable.oauth.consent'
 import { Route as Char91DotmcpChar93InvokeToolToolRouteImport } from './routes/[.mcp]/invoke-tool/$tool'
@@ -129,6 +130,11 @@ const ReceiptGroupRoute = ReceiptGroupRouteImport.update({
   path: '/receipt/$group',
   getParentRoute: () => rootRouteImport,
 } as any)
+const ShopsIndexRoute = ShopsIndexRouteImport.update({
+  id: '/shops/',
+  path: '/shops/',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const VerifyCodeRoute = VerifyCodeRouteImport.update({
   id: '/verify/$code',
   path: '/verify/$code',
@@ -167,6 +173,7 @@ export interface FileRoutesByFullPath {
   '/installments/': typeof InstallmentsIndexRoute
   '/manage/': typeof ManageIndexRoute
   '/products/': typeof ProductsIndexRoute
+  '/shops/': typeof ShopsIndexRoute
   '/.lovable/oauth/consent': typeof DotlovableOauthConsentRoute
   '/.mcp/invoke-tool/$tool': typeof Char91DotmcpChar93InvokeToolToolRoute
 }
@@ -191,6 +198,7 @@ export interface FileRoutesByTo {
   '/installments': typeof InstallmentsIndexRoute
   '/manage': typeof ManageIndexRoute
   '/products': typeof ProductsIndexRoute
+  '/shops': typeof ShopsIndexRoute
   '/.lovable/oauth/consent': typeof DotlovableOauthConsentRoute
   '/.mcp/invoke-tool/$tool': typeof Char91DotmcpChar93InvokeToolToolRoute
 }
@@ -216,6 +224,7 @@ export interface FileRoutesById {
   '/installments/': typeof InstallmentsIndexRoute
   '/manage/': typeof ManageIndexRoute
   '/products/': typeof ProductsIndexRoute
+  '/shops/': typeof ShopsIndexRoute
   '/.lovable/oauth/consent': typeof DotlovableOauthConsentRoute
   '/.mcp/invoke-tool/$tool': typeof Char91DotmcpChar93InvokeToolToolRoute
 }
@@ -242,6 +251,7 @@ export interface FileRouteTypes {
     | '/installments/'
     | '/manage/'
     | '/products/'
+    | '/shops/'
     | '/.lovable/oauth/consent'
     | '/.mcp/invoke-tool/$tool'
   fileRoutesByTo: FileRoutesByTo
@@ -266,6 +276,7 @@ export interface FileRouteTypes {
     | '/installments'
     | '/manage'
     | '/products'
+    | '/shops'
     | '/.lovable/oauth/consent'
     | '/.mcp/invoke-tool/$tool'
   id:
@@ -290,6 +301,7 @@ export interface FileRouteTypes {
     | '/installments/'
     | '/manage/'
     | '/products/'
+    | '/shops/'
     | '/.lovable/oauth/consent'
     | '/.mcp/invoke-tool/$tool'
   fileRoutesById: FileRoutesById
@@ -315,6 +327,7 @@ export interface RootRouteChildren {
   InstallmentsIndexRoute: typeof InstallmentsIndexRoute
   ManageIndexRoute: typeof ManageIndexRoute
   ProductsIndexRoute: typeof ProductsIndexRoute
+  ShopsIndexRoute: typeof ShopsIndexRoute
   DotlovableOauthConsentRoute: typeof DotlovableOauthConsentRoute
   Char91DotmcpChar93InvokeToolToolRoute: typeof Char91DotmcpChar93InvokeToolToolRoute
 }
@@ -454,6 +467,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof ReceiptGroupRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/shops/': {
+      id: '/shops/'
+      path: '/shops'
+      fullPath: '/shops/'
+      preLoaderRoute: typeof ShopsIndexRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/verify/$code': {
       id: '/verify/$code'
       path: '/verify/$code'
@@ -500,6 +520,7 @@ const rootRouteChildren: RootRouteChildren = {
   InstallmentsIndexRoute: InstallmentsIndexRoute,
   ManageIndexRoute: ManageIndexRoute,
   ProductsIndexRoute: ProductsIndexRoute,
+  ShopsIndexRoute: ShopsIndexRoute,
   DotlovableOauthConsentRoute: DotlovableOauthConsentRoute,
   Char91DotmcpChar93InvokeToolToolRoute: Char91DotmcpChar93InvokeToolToolRoute,
 }
