@@ -15,7 +15,6 @@ import { Route as McpRouteImport } from './routes/mcp'
 import { Route as MoneyRouteImport } from './routes/money'
 import { Route as PeopleRouteImport } from './routes/people'
 import { Route as SettingsRouteImport } from './routes/settings'
-import { Route as ShopsRouteImport } from './routes/shops'
 import { Route as SitemapDotxmlRouteImport } from './routes/sitemap[.]xml'
 import { Route as Char91DotmcpChar93ListToolsRouteImport } from './routes/[.mcp]/list-tools'
 import { Route as Char91DotwellKnownChar93OauthProtectedResourceRouteImport } from './routes/[.well-known]/oauth-protected-resource'
@@ -29,6 +28,8 @@ import { Route as ManageNewRouteImport } from './routes/manage.new'
 import { Route as ProductsIndexRouteImport } from './routes/products.index'
 import { Route as ProductsIdRouteImport } from './routes/products.$id'
 import { Route as ReceiptGroupRouteImport } from './routes/receipt.$group'
+import { Route as ShopsIndexRouteImport } from './routes/shops.index'
+import { Route as ShopsIdRouteImport } from './routes/shops.$id'
 import { Route as VerifyCodeRouteImport } from './routes/verify.$code'
 import { Route as DotlovableOauthConsentRouteImport } from './routes/[.]lovable.oauth.consent'
 import { Route as Char91DotmcpChar93InvokeToolToolRouteImport } from './routes/[.mcp]/invoke-tool/$tool'
@@ -61,11 +62,6 @@ const PeopleRoute = PeopleRouteImport.update({
 const SettingsRoute = SettingsRouteImport.update({
   id: '/settings',
   path: '/settings',
-  getParentRoute: () => rootRouteImport,
-} as any)
-const ShopsRoute = ShopsRouteImport.update({
-  id: '/shops',
-  path: '/shops',
   getParentRoute: () => rootRouteImport,
 } as any)
 const SitemapDotxmlRoute = SitemapDotxmlRouteImport.update({
@@ -135,6 +131,16 @@ const ReceiptGroupRoute = ReceiptGroupRouteImport.update({
   path: '/receipt/$group',
   getParentRoute: () => rootRouteImport,
 } as any)
+const ShopsIndexRoute = ShopsIndexRouteImport.update({
+  id: '/shops/',
+  path: '/shops/',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const ShopsIdRoute = ShopsIdRouteImport.update({
+  id: '/shops/$id',
+  path: '/shops/$id',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const VerifyCodeRoute = VerifyCodeRouteImport.update({
   id: '/verify/$code',
   path: '/verify/$code',
@@ -159,7 +165,6 @@ export interface FileRoutesByFullPath {
   '/money': typeof MoneyRoute
   '/people': typeof PeopleRoute
   '/settings': typeof SettingsRoute
-  '/shops': typeof ShopsRoute
   '/sitemap.xml': typeof SitemapDotxmlRoute
   '/.mcp/list-tools': typeof Char91DotmcpChar93ListToolsRoute
   '/.well-known/oauth-protected-resource': typeof Char91DotwellKnownChar93OauthProtectedResourceRoute
@@ -169,11 +174,13 @@ export interface FileRoutesByFullPath {
   '/manage/new': typeof ManageNewRoute
   '/products/$id': typeof ProductsIdRoute
   '/receipt/$group': typeof ReceiptGroupRoute
+  '/shops/$id': typeof ShopsIdRoute
   '/verify/$code': typeof VerifyCodeRoute
   '/categories/': typeof CategoriesIndexRoute
   '/installments/': typeof InstallmentsIndexRoute
   '/manage/': typeof ManageIndexRoute
   '/products/': typeof ProductsIndexRoute
+  '/shops/': typeof ShopsIndexRoute
   '/.lovable/oauth/consent': typeof DotlovableOauthConsentRoute
   '/.mcp/invoke-tool/$tool': typeof Char91DotmcpChar93InvokeToolToolRoute
 }
@@ -184,7 +191,6 @@ export interface FileRoutesByTo {
   '/money': typeof MoneyRoute
   '/people': typeof PeopleRoute
   '/settings': typeof SettingsRoute
-  '/shops': typeof ShopsRoute
   '/sitemap.xml': typeof SitemapDotxmlRoute
   '/.mcp/list-tools': typeof Char91DotmcpChar93ListToolsRoute
   '/.well-known/oauth-protected-resource': typeof Char91DotwellKnownChar93OauthProtectedResourceRoute
@@ -194,11 +200,13 @@ export interface FileRoutesByTo {
   '/manage/new': typeof ManageNewRoute
   '/products/$id': typeof ProductsIdRoute
   '/receipt/$group': typeof ReceiptGroupRoute
+  '/shops/$id': typeof ShopsIdRoute
   '/verify/$code': typeof VerifyCodeRoute
   '/categories': typeof CategoriesIndexRoute
   '/installments': typeof InstallmentsIndexRoute
   '/manage': typeof ManageIndexRoute
   '/products': typeof ProductsIndexRoute
+  '/shops': typeof ShopsIndexRoute
   '/.lovable/oauth/consent': typeof DotlovableOauthConsentRoute
   '/.mcp/invoke-tool/$tool': typeof Char91DotmcpChar93InvokeToolToolRoute
 }
@@ -210,7 +218,6 @@ export interface FileRoutesById {
   '/money': typeof MoneyRoute
   '/people': typeof PeopleRoute
   '/settings': typeof SettingsRoute
-  '/shops': typeof ShopsRoute
   '/sitemap.xml': typeof SitemapDotxmlRoute
   '/.mcp/list-tools': typeof Char91DotmcpChar93ListToolsRoute
   '/.well-known/oauth-protected-resource': typeof Char91DotwellKnownChar93OauthProtectedResourceRoute
@@ -220,11 +227,13 @@ export interface FileRoutesById {
   '/manage/new': typeof ManageNewRoute
   '/products/$id': typeof ProductsIdRoute
   '/receipt/$group': typeof ReceiptGroupRoute
+  '/shops/$id': typeof ShopsIdRoute
   '/verify/$code': typeof VerifyCodeRoute
   '/categories/': typeof CategoriesIndexRoute
   '/installments/': typeof InstallmentsIndexRoute
   '/manage/': typeof ManageIndexRoute
   '/products/': typeof ProductsIndexRoute
+  '/shops/': typeof ShopsIndexRoute
   '/.lovable/oauth/consent': typeof DotlovableOauthConsentRoute
   '/.mcp/invoke-tool/$tool': typeof Char91DotmcpChar93InvokeToolToolRoute
 }
@@ -237,7 +246,6 @@ export interface FileRouteTypes {
     | '/money'
     | '/people'
     | '/settings'
-    | '/shops'
     | '/sitemap.xml'
     | '/.mcp/list-tools'
     | '/.well-known/oauth-protected-resource'
@@ -247,11 +255,13 @@ export interface FileRouteTypes {
     | '/manage/new'
     | '/products/$id'
     | '/receipt/$group'
+    | '/shops/$id'
     | '/verify/$code'
     | '/categories/'
     | '/installments/'
     | '/manage/'
     | '/products/'
+    | '/shops/'
     | '/.lovable/oauth/consent'
     | '/.mcp/invoke-tool/$tool'
   fileRoutesByTo: FileRoutesByTo
@@ -262,7 +272,6 @@ export interface FileRouteTypes {
     | '/money'
     | '/people'
     | '/settings'
-    | '/shops'
     | '/sitemap.xml'
     | '/.mcp/list-tools'
     | '/.well-known/oauth-protected-resource'
@@ -272,11 +281,13 @@ export interface FileRouteTypes {
     | '/manage/new'
     | '/products/$id'
     | '/receipt/$group'
+    | '/shops/$id'
     | '/verify/$code'
     | '/categories'
     | '/installments'
     | '/manage'
     | '/products'
+    | '/shops'
     | '/.lovable/oauth/consent'
     | '/.mcp/invoke-tool/$tool'
   id:
@@ -287,7 +298,6 @@ export interface FileRouteTypes {
     | '/money'
     | '/people'
     | '/settings'
-    | '/shops'
     | '/sitemap.xml'
     | '/.mcp/list-tools'
     | '/.well-known/oauth-protected-resource'
@@ -297,11 +307,13 @@ export interface FileRouteTypes {
     | '/manage/new'
     | '/products/$id'
     | '/receipt/$group'
+    | '/shops/$id'
     | '/verify/$code'
     | '/categories/'
     | '/installments/'
     | '/manage/'
     | '/products/'
+    | '/shops/'
     | '/.lovable/oauth/consent'
     | '/.mcp/invoke-tool/$tool'
   fileRoutesById: FileRoutesById
@@ -313,7 +325,6 @@ export interface RootRouteChildren {
   MoneyRoute: typeof MoneyRoute
   PeopleRoute: typeof PeopleRoute
   SettingsRoute: typeof SettingsRoute
-  ShopsRoute: typeof ShopsRoute
   SitemapDotxmlRoute: typeof SitemapDotxmlRoute
   Char91DotmcpChar93ListToolsRoute: typeof Char91DotmcpChar93ListToolsRoute
   Char91DotwellKnownChar93OauthProtectedResourceRoute: typeof Char91DotwellKnownChar93OauthProtectedResourceRoute
@@ -323,11 +334,13 @@ export interface RootRouteChildren {
   ManageNewRoute: typeof ManageNewRoute
   ProductsIdRoute: typeof ProductsIdRoute
   ReceiptGroupRoute: typeof ReceiptGroupRoute
+  ShopsIdRoute: typeof ShopsIdRoute
   VerifyCodeRoute: typeof VerifyCodeRoute
   CategoriesIndexRoute: typeof CategoriesIndexRoute
   InstallmentsIndexRoute: typeof InstallmentsIndexRoute
   ManageIndexRoute: typeof ManageIndexRoute
   ProductsIndexRoute: typeof ProductsIndexRoute
+  ShopsIndexRoute: typeof ShopsIndexRoute
   DotlovableOauthConsentRoute: typeof DotlovableOauthConsentRoute
   Char91DotmcpChar93InvokeToolToolRoute: typeof Char91DotmcpChar93InvokeToolToolRoute
 }
@@ -374,13 +387,6 @@ declare module '@tanstack/react-router' {
       path: '/settings'
       fullPath: '/settings'
       preLoaderRoute: typeof SettingsRouteImport
-      parentRoute: typeof rootRouteImport
-    }
-    '/shops': {
-      id: '/shops'
-      path: '/shops'
-      fullPath: '/shops'
-      preLoaderRoute: typeof ShopsRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/sitemap.xml': {
@@ -474,6 +480,20 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof ReceiptGroupRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/shops/': {
+      id: '/shops/'
+      path: '/shops'
+      fullPath: '/shops/'
+      preLoaderRoute: typeof ShopsIndexRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/shops/$id': {
+      id: '/shops/$id'
+      path: '/shops/$id'
+      fullPath: '/shops/$id'
+      preLoaderRoute: typeof ShopsIdRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/verify/$code': {
       id: '/verify/$code'
       path: '/verify/$code'
@@ -505,7 +525,6 @@ const rootRouteChildren: RootRouteChildren = {
   MoneyRoute: MoneyRoute,
   PeopleRoute: PeopleRoute,
   SettingsRoute: SettingsRoute,
-  ShopsRoute: ShopsRoute,
   SitemapDotxmlRoute: SitemapDotxmlRoute,
   Char91DotmcpChar93ListToolsRoute: Char91DotmcpChar93ListToolsRoute,
   Char91DotwellKnownChar93OauthProtectedResourceRoute:
@@ -516,11 +535,13 @@ const rootRouteChildren: RootRouteChildren = {
   ManageNewRoute: ManageNewRoute,
   ProductsIdRoute: ProductsIdRoute,
   ReceiptGroupRoute: ReceiptGroupRoute,
+  ShopsIdRoute: ShopsIdRoute,
   VerifyCodeRoute: VerifyCodeRoute,
   CategoriesIndexRoute: CategoriesIndexRoute,
   InstallmentsIndexRoute: InstallmentsIndexRoute,
   ManageIndexRoute: ManageIndexRoute,
   ProductsIndexRoute: ProductsIndexRoute,
+  ShopsIndexRoute: ShopsIndexRoute,
   DotlovableOauthConsentRoute: DotlovableOauthConsentRoute,
   Char91DotmcpChar93InvokeToolToolRoute: Char91DotmcpChar93InvokeToolToolRoute,
 }
