@@ -80,11 +80,17 @@ const unwrap = <T>(res: { data: T | null; error: { message: string } | null }): 
   return (res.data ?? []) as T;
 };
 
+/**
+ * The list only carries the cover photo of each item. With thousands of items
+ * that is roughly a third of the data to download and keep on the phone; the
+ * rest of an item's photos are fetched when that item is actually opened.
+ */
 const PRODUCT_SELECT =
   "id,name,category_id,base_price,stock,variants,notes,created_at,product_media(id,product_id,url,kind,position)";
 
 export const keys = {
   products: ["products"] as const,
+  productMedia: (id: string) => ["product-media", id] as const,
   categories: ["categories"] as const,
   sales: ["sales"] as const,
   installments: ["installments"] as const,
@@ -94,6 +100,7 @@ export const keys = {
   shops: ["shops"] as const,
 
 };
+
 
 export const useCategories = () =>
   useQuery({
