@@ -108,7 +108,7 @@ function ShopDetail({ shop }: { shop: Shop }) {
 
   const drop = async () => {
     if (mine.length) {
-      notice.err("move its categories out first");
+      notice.error("move its categories out first");
       return;
     }
     if (!(await askConfirm("remove this shop?", { action: "remove", danger: true }))) return;
@@ -117,7 +117,7 @@ function ShopDetail({ shop }: { shop: Shop }) {
       notice.ok("shop removed");
       void navigate({ to: "/shops" });
     } catch {
-      notice.err("this shop still has sales on record, so it cannot be removed");
+      notice.error("this shop still has sales on record, so it cannot be removed");
     }
   };
 
@@ -238,7 +238,7 @@ function AddCategory({ shopId }: { shopId: string }) {
       setName("");
       notice.ok("category added");
     } catch {
-      notice.err("that category is already in this shop");
+      notice.error("that category is already in this shop");
     }
   };
 
