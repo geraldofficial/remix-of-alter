@@ -15,7 +15,6 @@ import { Route as McpRouteImport } from './routes/mcp'
 import { Route as MoneyRouteImport } from './routes/money'
 import { Route as PeopleRouteImport } from './routes/people'
 import { Route as SettingsRouteImport } from './routes/settings'
-import { Route as ShopsRouteImport } from './routes/shops'
 import { Route as SitemapDotxmlRouteImport } from './routes/sitemap[.]xml'
 import { Route as Char91DotmcpChar93ListToolsRouteImport } from './routes/[.mcp]/list-tools'
 import { Route as Char91DotwellKnownChar93OauthProtectedResourceRouteImport } from './routes/[.well-known]/oauth-protected-resource'
@@ -61,11 +60,6 @@ const PeopleRoute = PeopleRouteImport.update({
 const SettingsRoute = SettingsRouteImport.update({
   id: '/settings',
   path: '/settings',
-  getParentRoute: () => rootRouteImport,
-} as any)
-const ShopsRoute = ShopsRouteImport.update({
-  id: '/shops',
-  path: '/shops',
   getParentRoute: () => rootRouteImport,
 } as any)
 const SitemapDotxmlRoute = SitemapDotxmlRouteImport.update({
@@ -159,7 +153,6 @@ export interface FileRoutesByFullPath {
   '/money': typeof MoneyRoute
   '/people': typeof PeopleRoute
   '/settings': typeof SettingsRoute
-  '/shops': typeof ShopsRoute
   '/sitemap.xml': typeof SitemapDotxmlRoute
   '/.mcp/list-tools': typeof Char91DotmcpChar93ListToolsRoute
   '/.well-known/oauth-protected-resource': typeof Char91DotwellKnownChar93OauthProtectedResourceRoute
@@ -184,7 +177,6 @@ export interface FileRoutesByTo {
   '/money': typeof MoneyRoute
   '/people': typeof PeopleRoute
   '/settings': typeof SettingsRoute
-  '/shops': typeof ShopsRoute
   '/sitemap.xml': typeof SitemapDotxmlRoute
   '/.mcp/list-tools': typeof Char91DotmcpChar93ListToolsRoute
   '/.well-known/oauth-protected-resource': typeof Char91DotwellKnownChar93OauthProtectedResourceRoute
@@ -210,7 +202,6 @@ export interface FileRoutesById {
   '/money': typeof MoneyRoute
   '/people': typeof PeopleRoute
   '/settings': typeof SettingsRoute
-  '/shops': typeof ShopsRoute
   '/sitemap.xml': typeof SitemapDotxmlRoute
   '/.mcp/list-tools': typeof Char91DotmcpChar93ListToolsRoute
   '/.well-known/oauth-protected-resource': typeof Char91DotwellKnownChar93OauthProtectedResourceRoute
@@ -237,7 +228,6 @@ export interface FileRouteTypes {
     | '/money'
     | '/people'
     | '/settings'
-    | '/shops'
     | '/sitemap.xml'
     | '/.mcp/list-tools'
     | '/.well-known/oauth-protected-resource'
@@ -262,7 +252,6 @@ export interface FileRouteTypes {
     | '/money'
     | '/people'
     | '/settings'
-    | '/shops'
     | '/sitemap.xml'
     | '/.mcp/list-tools'
     | '/.well-known/oauth-protected-resource'
@@ -287,7 +276,6 @@ export interface FileRouteTypes {
     | '/money'
     | '/people'
     | '/settings'
-    | '/shops'
     | '/sitemap.xml'
     | '/.mcp/list-tools'
     | '/.well-known/oauth-protected-resource'
@@ -313,7 +301,6 @@ export interface RootRouteChildren {
   MoneyRoute: typeof MoneyRoute
   PeopleRoute: typeof PeopleRoute
   SettingsRoute: typeof SettingsRoute
-  ShopsRoute: typeof ShopsRoute
   SitemapDotxmlRoute: typeof SitemapDotxmlRoute
   Char91DotmcpChar93ListToolsRoute: typeof Char91DotmcpChar93ListToolsRoute
   Char91DotwellKnownChar93OauthProtectedResourceRoute: typeof Char91DotwellKnownChar93OauthProtectedResourceRoute
@@ -374,13 +361,6 @@ declare module '@tanstack/react-router' {
       path: '/settings'
       fullPath: '/settings'
       preLoaderRoute: typeof SettingsRouteImport
-      parentRoute: typeof rootRouteImport
-    }
-    '/shops': {
-      id: '/shops'
-      path: '/shops'
-      fullPath: '/shops'
-      preLoaderRoute: typeof ShopsRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/sitemap.xml': {
@@ -505,7 +485,6 @@ const rootRouteChildren: RootRouteChildren = {
   MoneyRoute: MoneyRoute,
   PeopleRoute: PeopleRoute,
   SettingsRoute: SettingsRoute,
-  ShopsRoute: ShopsRoute,
   SitemapDotxmlRoute: SitemapDotxmlRoute,
   Char91DotmcpChar93ListToolsRoute: Char91DotmcpChar93ListToolsRoute,
   Char91DotwellKnownChar93OauthProtectedResourceRoute:
