@@ -121,7 +121,10 @@ export const useProducts = () =>
         await supabase
           .from("products")
           .select(PRODUCT_SELECT)
-          .order("created_at", { ascending: false }),
+          .order("created_at", { ascending: false })
+          // only the cover photo travels with the list
+          .order("position", { referencedTable: "product_media", ascending: true })
+          .limit(1, { referencedTable: "product_media" }),
       ),
     /** the saved list (names, prices, photos) renders instantly, then refreshes */
     staleTime: 1000 * 60 * 5,
@@ -134,6 +137,22 @@ export const useProduct = (id: string) => {
   const { data, ...rest } = useProducts();
   return { ...rest, data: data?.find((p) => p.id === id) };
 };
+
+/** Every photo and clip of one item, fetched only when that item is opened. */
+export const useProductMedia = (id: string | undefined) =>
+  useQuery({
+    queryKey: keys.productMedia(id ?? "none"),
+    enabled: !!id,
+    queryFn: async () =>
+      unwrap<MediaRow[]>(
+        await supabase
+          .from("product_media")
+          .select("id,product_id,url,kind,position")
+          .eq("product_id", id!)
+          .order("position"),
+      ),
+    staleTime: 1000 * 60 * 5,
+  });
 
 export const useSales = () =>
   useQuery({
@@ -160,9 +179,12 @@ export const useInstallments = () =>
           .select(
             "*, installment_payments(*), sales(product_name, variant, receipt_no, sold_at, shop_id)",
           )
-          .order("created_at", { ascending: false }),
+          .order("created_at", { ascending: false })
+          // years of credit sales would otherwise all arrive at once
+          .limit(300),
       ),
   });
+
 
 export const usePeople = () =>
   useQuery({
@@ -330,7 +352,7 @@ export const useSaveProduct = () =>
       }
       return row;
     },
-    [keys.products],
+    [keys.products, ["product-media"]],
   );
 
 export const useDeleteProducts = () =>
@@ -348,7 +370,7 @@ export const useDeleteMedia = () =>
       const res = await supabase.from("product_media").delete().eq("id", id);
       if (res.error) throw new Error(res.error.message);
     },
-    [keys.products],
+    [keys.products, ["product-media"]],
   );
 
 /** Keeps the order photos are shown in, so the first one is the cover. */
@@ -360,7 +382,7 @@ export const useReorderMedia = () =>
         if (res.error) throw new Error(res.error.message);
       }
     },
-    [keys.products],
+    [keys.products, ["product-media"]],
   );
 
 

@@ -75,10 +75,17 @@ export function attachPersistence(client: QueryClient) {
     clearTimeout(timer);
     timer = setTimeout(() => {
       idle(() => {
-        void put({ at: Date.now(), state: dehydrate(client) });
+        // only finished, healthy results are worth keeping for the next visit
+        void put({
+          at: Date.now(),
+          state: dehydrate(client, {
+            shouldDehydrateQuery: (q) => q.state.status === "success" && !q.isStaleByTime(MAX_AGE),
+          }),
+        });
       });
     }, 2000);
   });
+
 }
 
 export const clearPersistence = () => {

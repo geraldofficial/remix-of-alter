@@ -14,7 +14,7 @@ import {
 import { Media } from "@/components/media";
 import { SaleFlow } from "@/components/sale-flow";
 import { money } from "@/lib/format";
-import { useCategories, useProduct } from "@/lib/queries";
+import { useCategories, useProduct, useProductMedia } from "@/lib/queries";
 
 export const Route = createFileRoute("/products/$id")({
   head: () => ({
@@ -42,6 +42,7 @@ function ProductPage() {
   const { id } = Route.useParams();
   const { data: product, isLoading } = useProduct(id);
   const { data: categories = [] } = useCategories();
+  const { data: gallery } = useProductMedia(id);
   const [selling, setSelling] = useState(false);
 
   if (isLoading)
@@ -61,7 +62,10 @@ function ProductPage() {
 
 
   const category = categories.find((c) => c.id === product.category_id)?.name;
-  const media = [...(product.product_media ?? [])].sort((a, b) => a.position - b.position);
+  // the cover arrives with the list, the rest of the photos load right after
+  const media = [...(gallery?.length ? gallery : (product.product_media ?? []))].sort(
+    (a, b) => a.position - b.position,
+  );
 
   return (
     <Screen>
