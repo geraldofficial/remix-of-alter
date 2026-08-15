@@ -5,7 +5,7 @@ import { askConfirm } from "@/lib/dialog";
 import { Guard } from "@/components/guard";
 import { Divider, Empty, Row, RowsSkeleton, Screen, TopBar } from "@/components/kit";
 import { ProductForm } from "@/components/product-form";
-import { useDeleteProducts, useProduct } from "@/lib/queries";
+import { useDeleteProducts, useProduct, useProductMedia } from "@/lib/queries";
 
 export const Route = createFileRoute("/manage/$id")({
   head: () => ({
@@ -30,9 +30,10 @@ function EditProduct() {
   const { id } = Route.useParams();
   const navigate = useNavigate();
   const { data: product, isLoading } = useProduct(id);
+  const { data: gallery, isLoading: loadingMedia } = useProductMedia(id);
   const del = useDeleteProducts();
 
-  if (isLoading) return <RowsSkeleton />;
+  if (isLoading || loadingMedia) return <RowsSkeleton />;
   if (!product) return <Empty text="this item is gone." />;
 
   const remove = async () => {
@@ -45,7 +46,9 @@ function EditProduct() {
   return (
     <Screen>
       <TopBar back title={product.name.toLowerCase()} />
-      <ProductForm product={product} onDone={() => void navigate({ to: "/manage" })} />
+      <ProductForm
+        product={{ ...product, product_media: gallery ?? product.product_media }}
+        onDone={() => void navigate({ to: "/manage" })} />
       <Divider />
       <Row as="button" onClick={() => void remove()}>
         <span className="flex-1 text-[15px] text-destructive">delete this item</span>
