@@ -48,20 +48,38 @@ function ProductsPage() {
   const [selected, setSelected] = useState<Set<string> | null>(null);
   const [selling, setSelling] = useState<Product[] | null>(null);
   const [focused, setFocused] = useState(false);
+  /** the grid grows as you scroll, so a shop with thousands of items still opens at once */
+  const [shown, setShown] = useState(PAGE);
+  const sentinel = useRef<HTMLDivElement | null>(null);
 
   const chips = Array.from(
     new Set([...categories.map((c) => c.name), ...products.slice(0, 12).map((p) => p.name)]),
   ).slice(0, 14);
 
+  useEffect(() => setShown(PAGE), [query, products.length]);
+
+  useEffect(() => {
+    const node = sentinel.current;
+    if (!node || typeof IntersectionObserver === "undefined") return;
+    const io = new IntersectionObserver(
+      (entries) => entries[0]?.isIntersecting && setShown((n) => n + PAGE),
+      { rootMargin: "600px" },
+    );
+    io.observe(node);
+    return () => io.disconnect();
+  }, [isLoading]);
+
   // the pictures the grid is about to show are kept on the phone, so it stays smooth
   useEffect(() => {
     if (!products.length) return;
     const covers = products
+      .slice(0, shown + PAGE)
       .map((p) => (p.product_media ?? []).find((m) => m.kind !== "video")?.url)
       .filter((u): u is string => !!u);
     const idle = window.requestIdleCallback ?? ((fn: () => void) => setTimeout(fn, 300));
     idle(() => void warmMedia(covers));
-  }, [products]);
+  }, [products, shown]);
+
 
   const toggle = (p: Product) => {
     setSelected((prev) => {
