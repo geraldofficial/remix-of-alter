@@ -1,6 +1,6 @@
 import { createFileRoute, useNavigate } from "@tanstack/react-router";
 import { Search, X, LayoutGrid } from "lucide-react";
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { Drawer, DrawerContent, DrawerTitle } from "@/components/ui/drawer";
 import { Guard } from "@/components/guard";
 import {
@@ -17,6 +17,9 @@ import { SaleFlow } from "@/components/sale-flow";
 import { warmMedia } from "@/lib/media";
 import { useCategories, useProducts, type Product } from "@/lib/queries";
 import { useProductSearch } from "@/lib/use-search";
+
+/** how many items are rendered at a time as you scroll */
+const PAGE = 60;
 
 export const Route = createFileRoute("/products/")({
   head: () => ({
@@ -170,7 +173,7 @@ function ProductsPage() {
           </div>
         ) : (
           <ProductGrid
-            products={found}
+            products={found.slice(0, shown)}
             why={why}
             onOpen={open}
             onLongPress={(p) => setSelected(new Set([p.id]))}
