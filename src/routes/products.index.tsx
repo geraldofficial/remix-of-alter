@@ -193,7 +193,7 @@ function ProductsPage() {
         )}
       </div>
 
-      <div className="h-28" />
+      <div ref={sentinel} className="h-28" />
 
       {selected && selected.size > 0 ? (
         <div className="fixed inset-x-0 bottom-0 z-40 mx-auto max-w-md bg-background/95 px-4 pb-[calc(env(safe-area-inset-bottom)+16px)] pt-3 backdrop-blur">
