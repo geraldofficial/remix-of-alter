@@ -352,7 +352,7 @@ export const useSaveProduct = () =>
       }
       return row;
     },
-    [keys.products],
+    [keys.products, ["product-media"]],
   );
 
 export const useDeleteProducts = () =>
@@ -370,7 +370,7 @@ export const useDeleteMedia = () =>
       const res = await supabase.from("product_media").delete().eq("id", id);
       if (res.error) throw new Error(res.error.message);
     },
-    [keys.products],
+    [keys.products, ["product-media"]],
   );
 
 /** Keeps the order photos are shown in, so the first one is the cover. */
@@ -382,7 +382,7 @@ export const useReorderMedia = () =>
         if (res.error) throw new Error(res.error.message);
       }
     },
-    [keys.products],
+    [keys.products, ["product-media"]],
   );
 
 
